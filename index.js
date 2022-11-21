@@ -6,75 +6,73 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-// const employee1 = new Employee(this.name, this.id, this.email);
+let teamMembersArray = [];
 
-// function addManager() {
-//   return  inquirer.prompt(managerQuestions)
-//   .then(function (userData) {
-//       writeToFile("index.html", userData);
-//   });
-// }
-
-const teamMembersArray = [];
-
-const managerQuestions = [{
-  type: "input",
-  name: "name",
-  message: `What is the team manager's name?`,
-  //validate checks if the user left the console blank or not
-  validate: nameInput => {
-    if (nameInput) {
-      return true;
-    } else {
-      console.log(`Please enter your team manager's name.`);
-      return false;
-    }
-  }
-},
-
-{
-  type: "input",
-  name: "id",
-  message: `What is the team manager's id?`,
-  //validate checks if the user left the console blank or not
-  validate: idInput => {
-    if (idInput) {
-      return true;
-    } else {
-      console.log(`Please enter your team manager's id.`);
-      return false;
-    }
-  }
-},
-{
-  type: "input",
-  name: "email",
-  message: `What is the team manager's email?`,
-  //validate checks if the user left the console blank or not
-  validate: emailInput => {
-    if (emailInput) {
-      return true;
-    } else {
-      console.log(`Please enter your team manager's email.`);
-      return false;
-    }
-  }
-},
-{
-  type: "input",
-  name: "officeNumber",
-  message: "What is the team manager's office number?",
-  //validate checks if the user left the console blank or not
-  validate: officeNumberInput => {
-    if (officeNumberInput) {
-      return true;
-    } else {
-      console.log("Please enter your team manager's office number.");
-      return false;
-    }
-  }
+const managerQuestions = () => {
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: `What is the manager's name?`,
+      //validate checks if the user left the console blank or not
+      validate: nameInput => {
+        if (nameInput) {
+          return true;
+        } else {
+          console.log(`Please enter your manager's name.`);
+          return false;
+        }
+      }
+    },
+    {
+      type: "input",
+      name: "id",
+      message: `What is the manager's id?`,
+      //validate checks if the user left the console blank or not
+      validate: idInput => {
+        if (idInput) {
+          return true;
+        } else {
+          console.log(`Please enter your manager's id.`);
+          return false;
+        }
+      }
+    },
+    {
+      type: "input",
+      name: "email",
+      message: `What is the manager's email?`,
+      //validate checks if the user left the console blank or not
+      validate: emailInput => {
+        if (emailInput) {
+          return true;
+        } else {
+          console.log(`Please enter your manager's email.`);
+          return false;
+        }
+      }
+    },
+    {
+      type: "input",
+      name: "officeNumber",
+      message: "What is the manager's office number?",
+      //validate checks if the user left the console blank or not
+      validate: officeNumberInput => {
+        if (officeNumberInput) {
+          return true;
+        } else {
+          console.log("Please enter your manager's office number.");
+          return false;
+        }
+      }
+    },
+  ]).then(managerInput => {
+    const { name, id, email, officeNumber } = managerInput;
+    const manager = new Manager(name, id, email, officeNumber);
+    teamMembersArray.push(manager);
+    addTeamMemberQuestion();
+  })
 }
-]
 
 const addTeamMemberQuestion = () => {
   inquirer.prompt([
@@ -84,14 +82,14 @@ const addTeamMemberQuestion = () => {
       message: 'Which type of team member would you like to add?',
       choices: ['Engineer', 'Intern', 'I do not want to add more team members'], //prompts user to select between options
     }
-  ]).then(choice => { //for inquirer the parameter has to be something
-    console.log(choice)  //parameter here is an object
+  ]).then(choice => { //for inquirer the parameter has to be something which is an object here
     if (choice.addTeamMember === 'Engineer') {
       engineerQuestions();
-    }else if(choice.addTeamMember === 'Intern') {
+    } else if (choice.addTeamMember === 'Intern') {
       internQuestions();
-    }else if(choice.addTeamMember === 'I do not want to add more team members'){
-      writeToFile("./dist/index.html", userData);
+    } else if (choice.addTeamMember === 'I do not want to add more team members') {
+      console.log(teamMembersArray);
+      writeToFile("./dist/index.html", generateHTML(teamMembersArray));
     }
   })
 }
@@ -100,131 +98,139 @@ const engineerQuestions = () => {
   inquirer.prompt([
     {
       type: "input",
-      name: "firstName",
+      name: "name",
       message: `What is the engineer's name?`,
       //validate checks if the user left the console blank or not
-      validate: firstNameInput => {
-        if (firstNameInput) {
+      validate: nameInput => {
+        if (nameInput) {
           return true;
         } else {
           console.log(`Please enter your engineer's name.`);
           return false;
         }
-    }
-  },
-  {
-    type: "input",
-    name: "id",
-    message: `What is the engineer's id?`,
-    //validate checks if the user left the console blank or not
-    validate: idInput => {
-      if (idInput) {
-        return true;
-      } else {
-        console.log(`Please enter your engineer's id.`);
-        return false;
       }
-    }
-  },
-  {
-    type: "input",
-    name: "email",
-    message: `What is the engineer's email?`,
-    //validate checks if the user left the console blank or not
-    validate: emailInput => {
-      if (emailInput) {
-        return true;
-      } else {
-        console.log(`Please enter your engineer's email.`);
-        return false;
+    },
+    {
+      type: "input",
+      name: "id",
+      message: `What is the engineer's id?`,
+      //validate checks if the user left the console blank or not
+      validate: idInput => {
+        if (idInput) {
+          return true;
+        } else {
+          console.log(`Please enter your engineer's id.`);
+          return false;
+        }
       }
-    }
-  },
-  {
-    type: "input",
-    name: "githubUsername",
-    message: "What is the engineer's GitHub username?",
-    //validate checks if the user left the console blank or not
-    validate: githubUsernameInput => {
-      if (githubUsernameInput) {
-        return true;
-      } else {
-        console.log("Please enter your engineer's GitHub username.");
-        return false;
+    },
+    {
+      type: "input",
+      name: "email",
+      message: `What is the engineer's email?`,
+      //validate checks if the user left the console blank or not
+      validate: emailInput => {
+        if (emailInput) {
+          return true;
+        } else {
+          console.log(`Please enter your engineer's email.`);
+          return false;
+        }
       }
-    }
-  },
-  ]).then(userData => {
+    },
+    {
+      type: "input",
+      name: "github",
+      message: "What is the engineer's GitHub username?",
+      //validate checks if the user left the console blank or not
+      validate: githubInput => {
+        if (githubInput) {
+          return true;
+        } else {
+          console.log("Please enter your engineer's GitHub username.");
+          return false;
+        }
+      }
+    },
+  ]).then(engineerInput => {
+    const { name, id, email, github } = engineerInput;
+    const engineer = new Engineer(name, id, email, github);
+    teamMembersArray.push(engineer);
     addTeamMemberQuestion();
   })
+
 }
 
 const internQuestions = () => {
   inquirer.prompt([
     {
       type: "input",
-      name: "firstName",
+      name: "name",
       message: `What is the intern's name?`,
       //validate checks if the user left the console blank or not
-      validate: firstNameInput => {
-        if (firstNameInput) {
+      validate: nameInput => {
+        if (nameInput) {
           return true;
         } else {
           console.log(`Please enter your intern's name.`);
           return false;
         }
-    }
-  },
-  {
-    type: "input",
-    name: "id",
-    message: `What is the intern's id?`,
-    //validate checks if the user left the console blank or not
-    validate: idInput => {
-      if (idInput) {
-        return true;
-      } else {
-        console.log(`Please enter your intern's id.`);
-        return false;
       }
-    }
-  },
-  {
-    type: "input",
-    name: "email",
-    message: `What is the intern's email?`,
-    //validate checks if the user left the console blank or not
-    validate: emailInput => {
-      if (emailInput) {
-        return true;
-      } else {
-        console.log(`Please enter your intern's email.`);
-        return false;
+    },
+    {
+      type: "input",
+      name: "id",
+      message: `What is the intern's id?`,
+      //validate checks if the user left the console blank or not
+      validate: idInput => {
+        if (idInput) {
+          return true;
+        } else {
+          console.log(`Please enter your intern's id.`);
+          return false;
+        }
       }
-    }
-  },
-  {
-    type: "input",
-    name: "schoolName",
-    message: "What is the intern's school name?",
-    //validate checks if the user left the console blank or not
-    validate: schoolNameInput => {
-      if (schoolNameInput) {
-        return true;
-      } else {
-        console.log("Please enter your intern's school name.");
-        return false;
+    },
+    {
+      type: "input",
+      name: "email",
+      message: `What is the intern's email?`,
+      //validate checks if the user left the console blank or not
+      validate: emailInput => {
+        if (emailInput) {
+          return true;
+        } else {
+          console.log(`Please enter your intern's email.`);
+          return false;
+        }
       }
-    }
-  },
-  ]).then(userData => {
-    addTeamMemberQuestion();
-  })
+    },
+    {
+      type: "input",
+      name: "school",
+      message: "What is the intern's school name?",
+      //validate checks if the user left the console blank or not
+      validate: schoolInput => {
+        if (schoolInput) {
+          return true;
+        } else {
+          console.log("Please enter your intern's school name.");
+          return false;
+        }
+      }
+    },
+  ]).then(internInput => {
+      const { name, id, email, school } = internInput;
+      const intern = new Intern(name, id, email, school);
+      teamMembersArray.push(intern);
+      addTeamMemberQuestion();
+    })
 }
 
 // Creates a function to write HTML file
-function writeToFile(fileName, data) {
-  fs.writeFile("./dist/index.html", generateHTML(data), function (err) {
+function writeToFile(fileName, teamMembersArray) {
+  fileName = "./dist/index.html";
+  fs.writeFile(fileName, generateHTML(teamMembersArray), function (err) {
     if (err) {
       return console.log(err);
     }
@@ -236,16 +242,8 @@ function writeToFile(fileName, data) {
 function init() {
   console.log('Welcome to the team generator!');
   console.log("Use 'npm run test' to reset the dist/ folder");
-  inquirer.prompt(managerQuestions)
-    .then(function (userData) {
-      const manager = new Manager(userData.name, userData.id, userData.email, userData.officeNumber);
-      teamMembersArray = manager;
-      console.log(manager);
-      addTeamMemberQuestion();
-    });
+  managerQuestions();
 }
-
-
 
 // Function call to initialize app
 init();
