@@ -2,6 +2,7 @@
 const inquirer = require('inquirer'); // third-party inquirer package
 const fs = require('fs'); // reads/writes the files from/to the computer
 const generateHTML = require('./src/generateHTML.js') // helps it to work with other JS files
+
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
@@ -67,7 +68,7 @@ const managerQuestions = () => {
       }
     },
   ]).then(managerInput => {
-    const { name, id, email, officeNumber } = managerInput;
+    const { name, id, email, officeNumber } = managerInput; //object deconstructing
     const manager = new Manager(name, id, email, officeNumber);
     teamMembersArray.push(manager);
     addTeamMemberQuestion();
@@ -88,8 +89,8 @@ const addTeamMemberQuestion = () => {
     } else if (choice.addTeamMember === 'Intern') {
       internQuestions();
     } else if (choice.addTeamMember === 'I do not want to add more team members') {
-      console.log(teamMembersArray);
-      writeToFile("./dist/index.html", generateHTML(teamMembersArray));
+      // console.log(teamMembersArray);
+      writeToFile("./dist/index.html", teamMembersArray);
     }
   })
 }
@@ -153,7 +154,7 @@ const engineerQuestions = () => {
       }
     },
   ]).then(engineerInput => {
-    const { name, id, email, github } = engineerInput;
+    const { name, id, email, github } = engineerInput; //object deconstructing
     const engineer = new Engineer(name, id, email, github);
     teamMembersArray.push(engineer);
     addTeamMemberQuestion();
@@ -220,7 +221,7 @@ const internQuestions = () => {
       }
     },
   ]).then(internInput => {
-      const { name, id, email, school } = internInput;
+      const { name, id, email, school } = internInput; //object deconstructing
       const intern = new Intern(name, id, email, school);
       teamMembersArray.push(intern);
       addTeamMemberQuestion();
@@ -229,7 +230,7 @@ const internQuestions = () => {
 
 // Creates a function to write HTML file
 function writeToFile(fileName, teamMembersArray) {
-  fileName = "./dist/index.html";
+  //fileName = "./dist/index.html";
   fs.writeFile(fileName, generateHTML(teamMembersArray), function (err) {
     if (err) {
       return console.log(err);
