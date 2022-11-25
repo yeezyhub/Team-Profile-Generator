@@ -13,14 +13,14 @@ describe("Employee Test", () => {
     });
 
     it("should return the id of the employee", () => {
-        const id = "1";
-        const employee = new Employee(id);
+        const id = 1;
+        const employee = new Employee('Yigit', id);
         expect(employee.getId()).toEqual(id);
     });
 
     it("should return the email of the employee", () => {
         const email = "yigit@gmail.com";
-        const employee = new Employee(email);
+        const employee = new Employee('Yigit', 1, email);
         expect(employee.getEmail()).toEqual(email);
     });
 
