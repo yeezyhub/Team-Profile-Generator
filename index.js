@@ -3,12 +3,15 @@ const inquirer = require('inquirer'); // third-party inquirer package
 const fs = require('fs'); // reads/writes the files from/to the computer
 const generateHTML = require('./src/generateHTML.js') // helps it to work with other JS files
 
+//get the module.exports from the other .js files
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
+//creating an array to hold all the information passed in
 let teamMembersArray = [];
 
+//questions for managers
 const managerQuestions = () => {
   inquirer.prompt([
     {
@@ -75,6 +78,7 @@ const managerQuestions = () => {
   })
 }
 
+//question for whether adding a new team member or not
 const addTeamMemberQuestion = () => {
   inquirer.prompt([
     {
@@ -95,6 +99,7 @@ const addTeamMemberQuestion = () => {
   })
 }
 
+//questions for engineers
 const engineerQuestions = () => {
   inquirer.prompt([
     {
@@ -162,6 +167,7 @@ const engineerQuestions = () => {
 
 }
 
+//questions for interns
 const internQuestions = () => {
   inquirer.prompt([
     {

@@ -1,5 +1,6 @@
-const Manager = require("../lib/Manager");
+const Manager = require("../lib/Manager"); //requiring the class to test
 
+//describing the test and testing each property and methods for the class
 describe("Manager Test", () => {
     it("should check if manager instance returns as an object", () => {
         const manager = new Manager();

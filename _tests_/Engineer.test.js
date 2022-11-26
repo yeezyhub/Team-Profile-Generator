@@ -1,5 +1,6 @@
-const Engineer = require("../lib/Engineer");
+const Engineer = require("../lib/Engineer"); //requiring the class to test
 
+//describing the test and testing each property and methods for the class
 describe("Engineer Test", () => {
     it("should check if engineer instance returns as an object", () => {
         const engineer = new Engineer();

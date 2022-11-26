@@ -1,5 +1,6 @@
-const Employee = require("../lib/Employee");
+const Employee = require("../lib/Employee"); //requiring the class to test
 
+//describing the test and testing each property and methods for the class
 describe("Employee Test", () => {
     it("should check if employee instance returns as an object", () => {
         const employee = new Employee();

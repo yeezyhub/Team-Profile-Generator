@@ -1,3 +1,4 @@
+//generating manager card
 const generateManager = function (manager) {
   return `
   <div class="card employee-card">
@@ -16,6 +17,7 @@ const generateManager = function (manager) {
   `;
 }
 
+//generating engineer card
 const generateEngineer = function (engineer) {
   return `
   <div class="card employee-card">
@@ -34,6 +36,7 @@ const generateEngineer = function (engineer) {
   `
 }
 
+//generating intern card
 const generateIntern = function (intern) {
   return `
   <div class="card employee-card">
@@ -52,8 +55,10 @@ const generateIntern = function (intern) {
   `
 };
 
+//an array to hold all the cards
 const employeeCardsArray = [];
 
+//pushes the cards to the array depending on their class name
 const generateHTML = (data) => {
 
   for (let i = 0; i < data.length; i++) {
@@ -76,11 +81,10 @@ const generateHTML = (data) => {
         break;
     }
   }
-  // const employeeCardsArray = pageArray.join('')
   return generateTeamMembers(employeeCardsArray.join(''));
 }
 
-// Creates a function to generate markdown for README
+// Creates a function to generate HTML file of the whole team
 const generateTeamMembers = function (employeeCardsArray) {
   return `
   <!DOCTYPE html>

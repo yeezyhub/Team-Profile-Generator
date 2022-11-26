@@ -1,5 +1,6 @@
-const Intern = require("../lib/Intern");
+const Intern = require("../lib/Intern"); //requiring the class to test
 
+//describing the test and testing each property and methods for the class
 describe("Intern Test", () => {
     it("should check if intern instance returns as an object", () => {
         const intern = new Intern();
