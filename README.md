@@ -23,7 +23,7 @@
 
   After the installation of the Inquirer, type in 'node index.js' to the console to start the process.
 
-  [Video Demonstration](https://youtu.be/9CF5VpFRnNg)
+  [Video Demonstration](https://www.youtube.com/watch?v=GdQyN_yqld8)
 
 ## License
 
